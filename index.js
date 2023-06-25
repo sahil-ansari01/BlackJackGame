@@ -1,6 +1,6 @@
 let player = {
     name: "Guest",
-    balance: 200,
+    chips: 200,
 };
 let cards = [];
 let sum = 0;
@@ -12,7 +12,7 @@ let sumEl = document.getElementById("sum-el");
 let cardsEl = document.getElementById("cards-el");
 let playerEl = document.getElementById("player-el");
 
-playerEl.textContent = player.name + ": $" + player.balance;
+playerEl.textContent = player.name + ": $" + player.chips;
 
 function getRandomCard() {
     let randomNumber = Math.floor(Math.random() * 13) + 1;
@@ -52,7 +52,7 @@ function renderGame() {
     }
     messageEl.textContent = message;
 
-    updateBalance(); // Call the updateBalance function to update the balance
+    updatechips(); // Call the updatechips function to update the chips
 }
 
 function newCard() {
@@ -64,14 +64,14 @@ function newCard() {
     }
 }
 
-function updateBalance() {
+function updatechips() {
     if (hasBlackJack) {
-        player.balance += 50;
-        playerEl.textContent = player.name + ": $" + player.balance;
+        player.chips += 50;
+        playerEl.textContent = player.name + ": $" + player.chips;
         messageEl.textContent += " You won $50!";
     } else if (!isAlive) {
-        player.balance -= 25;
-        playerEl.textContent = player.name + ": $" + player.balance;
+        player.chips -= 25;
+        playerEl.textContent = player.name + ": $" + player.chips;
         messageEl.textContent += " You lost $25. Start a new game!";
     }
 }
