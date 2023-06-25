@@ -12,7 +12,8 @@ let sumEl = document.getElementById("sum-el")
 let cardsEl = document.getElementById("cards-el")
 let playerEl = document.getElementById("player-el")
 
-playerEl.textContent = player.name + ": $" + player.chips
+// playerEl.textContent = player.name + ": $" + player.chips
+
 function getRandomCard() {
     let randomNumber = Math.floor( Math.random()*13 ) + 1
     if (randomNumber > 10) {
@@ -51,7 +52,7 @@ function renderGame() {
         isAlive = false
     }
     messageEl.textContent = message
-    
+
     updateBalance(); // Call the updateBalance function to update the balance
 }
 
