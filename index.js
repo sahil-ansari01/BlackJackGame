@@ -31,6 +31,7 @@ function startGame() {
     let secondCard = getRandomCard()
     cards = [firstCard, secondCard]
     sum = firstCard + secondCard
+    player.chips -= 50;
     renderGame()
 }
 
