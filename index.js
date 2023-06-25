@@ -1,7 +1,8 @@
 let player = {
     name: "Guest",
-    chips: 200,
+    chips: 150
 };
+
 let cards = [];
 let sum = 0;
 let hasBlackJack = false;
@@ -26,12 +27,19 @@ function getRandomCard() {
 }
 
 function startGame() {
-    isAlive = true;
-    let firstCard = getRandomCard();
-    let secondCard = getRandomCard();
-    cards = [firstCard, secondCard];
-    sum = firstCard + secondCard;
-    renderGame();
+    if (player.chips >= 10) {
+        isAlive = true;
+        hasBlackJack = false;
+        player.chips -= 10; // Decrease chips by 10
+        playerEl.textContent = player.name + ": $" + player.chips;
+        let firstCard = getRandomCard();
+        let secondCard = getRandomCard();
+        cards = [firstCard, secondCard];
+        sum = firstCard + secondCard;
+        renderGame();
+    } else {
+        messageEl.textContent = "Insufficient chips to start the game!";
+    }
 }
 
 function renderGame() {
@@ -46,32 +54,24 @@ function renderGame() {
     } else if (sum === 21) {
         message = "You've got Blackjack!";
         hasBlackJack = true;
+        player.chips += 20; // Reward 20 chips for getting blackjack
+        playerEl.textContent = player.name + ": $" + player.chips;
     } else {
-        message = "You're out of the game!";
+        message = "You're out of the game! Start new game";
         isAlive = false;
     }
     messageEl.textContent = message;
 
-    updatechips(); // Call the updatechips function to update the chips
+    if (!isAlive && player.chips <= 0) {
+        messageEl.textContent += " Game over. Refresh the page to start again.";
+    }
 }
 
 function newCard() {
-    if (isAlive === true && hasBlackJack === false) {
+    if (isAlive && !hasBlackJack) {
         let card = getRandomCard();
         sum += card;
         cards.push(card);
         renderGame();
-    }
-}
-
-function updatechips() {
-    if (hasBlackJack) {
-        player.chips += 50;
-        playerEl.textContent = player.name + ": $" + player.chips;
-        messageEl.textContent += " You won $50!";
-    } else if (!isAlive) {
-        player.chips -= 25;
-        playerEl.textContent = player.name + ": $" + player.chips;
-        messageEl.textContent += " You lost $25. Start a new game!";
     }
 }
