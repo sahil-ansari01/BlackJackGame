@@ -31,7 +31,11 @@ function startGame() {
     let secondCard = getRandomCard()
     cards = [firstCard, secondCard]
     sum = firstCard + secondCard
-    player.balance -= 50;
+
+    if (sum === 21) {
+        hasBlackJack = true;
+        player.balance -= 50; // Decrease the player's balance by $50  
+    } 
     renderGame()
 }
 
