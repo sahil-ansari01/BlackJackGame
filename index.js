@@ -1,6 +1,6 @@
 let player = {
     name: "Guest",
-    balance: 200
+    chips: 200
 }
 let cards = []
 let sum = 0
@@ -12,8 +12,7 @@ let sumEl = document.getElementById("sum-el")
 let cardsEl = document.getElementById("cards-el")
 let playerEl = document.getElementById("player-el")
 
-playerEl.textContent = player.name + ": $" + cost()
-
+playerEl.textContent = player.name + ": $" + player.chips
 function getRandomCard() {
     let randomNumber = Math.floor( Math.random()*13 ) + 1
     if (randomNumber > 10) {
@@ -34,15 +33,6 @@ function startGame() {
     renderGame()
 }
 
-function cost() {
-    if (sum === 21) {
-        hasBlackJack = true;
-        return player.balance += 25; // Decrease the player's balance by $50  
-    } 
-
-
-}
-
 
 function renderGame() {
     cardsEl.textContent = "Cards: "
@@ -61,8 +51,9 @@ function renderGame() {
         isAlive = false
     }
     messageEl.textContent = message
+    
+    updateBalance(); // Call the updateBalance function to update the balance
 }
-
 
 
 function newCard() {
@@ -71,5 +62,17 @@ function newCard() {
         sum += card
         cards.push(card)
         renderGame()        
+    }
+}
+
+function updateChips() {
+    if(hasBlackJack) {
+        player.chips += 50
+        playerEl.textContent = player.name + " $" + player.chips
+        messageEl.textContent += " You won  $50! "
+    } else if (!isAlive) {
+        player.chips -= 25
+        playerEl.textContent = player.name + " $" + player.chips
+        messageEl.textContent = " You lost $25. Start a new game! "
     }
 }
