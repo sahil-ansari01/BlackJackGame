@@ -12,7 +12,7 @@ let sumEl = document.getElementById("sum-el")
 let cardsEl = document.getElementById("cards-el")
 let playerEl = document.getElementById("player-el")
 
-playerEl.textContent = player.name + ": $" + player.balance
+playerEl.textContent = player.name + ": $" + cost()
 
 function getRandomCard() {
     let randomNumber = Math.floor( Math.random()*13 ) + 1
@@ -30,15 +30,18 @@ function startGame() {
     let firstCard = getRandomCard()
     let secondCard = getRandomCard()
     cards = [firstCard, secondCard]
-    sum = firstCard + secondCard
-
-    if (sum === 21) {
-        hasBlackJack = true;
-        player.balance -= 50; // Decrease the player's balance by $50  
-    } 
+    sum = firstCard + secondCard 
     renderGame()
 }
 
+function cost() {
+    if (sum === 21) {
+        hasBlackJack = true;
+        return player.balance += 25; // Decrease the player's balance by $50  
+    } 
+
+
+}
 
 
 function renderGame() {
