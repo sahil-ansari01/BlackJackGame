@@ -1,6 +1,6 @@
 let player = {
     name: "Guest",
-    chips: 200
+    balance: 200
 }
 let cards = []
 let sum = 0
@@ -12,7 +12,7 @@ let sumEl = document.getElementById("sum-el")
 let cardsEl = document.getElementById("cards-el")
 let playerEl = document.getElementById("player-el")
 
-
+playerEl.textContent = player.name + ": $" + player.balance
 
 function getRandomCard() {
     let randomNumber = Math.floor( Math.random()*13 ) + 1
@@ -31,9 +31,11 @@ function startGame() {
     let secondCard = getRandomCard()
     cards = [firstCard, secondCard]
     sum = firstCard + secondCard
-    player.chips = player.chips - 50;
+    player.balance -= 50;
     renderGame()
 }
+
+
 
 function renderGame() {
     cardsEl.textContent = "Cards: "
@@ -54,7 +56,6 @@ function renderGame() {
     messageEl.textContent = message
 }
 
-playerEl.textContent = player.name + ": $" + player.chips
 
 
 function newCard() {
